@@ -29,7 +29,7 @@ label start:
     # replace it by adding a file named "eileen happy.png" to the images
     # directory.
     "You come across the entrance to a Dungeon and decide to explore."
-    while player_hp>0:
+    if player_hp>0:
         
         if encounter_type > .25:
             call encounter_stats
@@ -43,12 +43,16 @@ label start:
                         "You don't do anything"
                 #Enemy Turn
                 $player_hp -= enemy_damage
+                if player_hp<=0:
+                    
                 "The [enemy] attacks reducing your health to [player_hp]."
             $winCount += 1
-            call win_screen
+            
         elif encounter_type <= .25:
             call encounter_stats
             pass
+    else:
+
 
 label player_stats:
     $winCount = 0
@@ -71,6 +75,3 @@ label encounter_stats:
 
     $encounter_type = renpy.random.random()
 
-label win_screen:
-    "You won!. You have now won [winCount] battles."
-    
